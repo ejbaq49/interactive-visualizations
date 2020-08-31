@@ -1,9 +1,11 @@
-// Use D3 fetch to read the JSON file
-// The data from the JSON file is arbitrarily named importedData as the argument
-d3.json("samples.json").then((importedData) => {
-  // console.log(importedData);
-  var data = importedData;
-});
+d3.json("samples.json").then((data) => {
+  var metadata = data.metadata;
+  var subjectNames = data.names;
 
-var names = data.names;
-console.log(names);
+  // add test subjects to select
+  var testSubject = d3.select("#selDataset");
+  subjectNames.forEach((subject) => {
+    var newSubject = testSubject.append("option");
+    newSubject.text(subject);
+  });
+});
