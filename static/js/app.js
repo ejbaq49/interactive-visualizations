@@ -1,5 +1,5 @@
 // Pull in and process samples.json for charts
-d3.json("samples.json").then((data) => {
+d3.json("/static/data/samples.json").then((data) => {
   // retrieve datasets
   var metadata = data.metadata;
   var subjectNames = data.names;
@@ -31,10 +31,20 @@ d3.json("samples.json").then((data) => {
     filteredMetadata = metadata.filter(function (meta) {
       return meta.id == selectedSubject;
     });
-    var strFiltMetadata = JSON.stringify(filteredMetadata);
+
+    // remove all paragraph elements first
+    sampleMetadata.html("");
+    // add paragraph tags in panel-body
+    filteredMetadata.forEach((item) => {
+      Object.entries(item).forEach(([key, value]) => {
+        console.log(`${key}: ${value}`);
+        var newParagraph = sampleMetadata.append("p");
+        newParagraph.text(`${key}: ${value}`);
+      });
+    });
 
     // console.log
     console.log(`Selected Sample: ${selectedSubject}`);
-    console.log(`Sample Metadata: ${strFiltMetadata}`);
+    console.log(`Sample Metadata: ${JSON.stringify(filteredMetadata)}`);
   }
 });
