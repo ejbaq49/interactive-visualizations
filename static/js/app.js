@@ -3,6 +3,7 @@ d3.json("/static/data/samples.json").then((data) => {
   // retrieve datasets
   var metadata = data.metadata;
   var subjectNames = data.names;
+  var samples = data.samples;
 
   // console.log(metadata);
 
@@ -32,12 +33,17 @@ d3.json("/static/data/samples.json").then((data) => {
       return meta.id == selectedSubject;
     });
 
+    // filter samples
+    var filteredSamples = samples.filter(function (sample) {
+      return sample.id == selectedSubject;
+    });
+
     // remove all paragraph elements first
     sampleMetadata.html("");
     // add paragraph tags in panel-body
     filteredMetadata.forEach((item) => {
       Object.entries(item).forEach(([key, value]) => {
-        console.log(`${key}: ${value}`);
+        // console.log(`${key}: ${value}`);
         var newParagraph = sampleMetadata.append("p");
         newParagraph.text(`${key}: ${value}`);
       });
@@ -46,5 +52,6 @@ d3.json("/static/data/samples.json").then((data) => {
     // console.log
     console.log(`Selected Sample: ${selectedSubject}`);
     console.log(`Sample Metadata: ${JSON.stringify(filteredMetadata)}`);
+    console.log(`Samples: ${JSON.stringify(filteredSamples)}`);
   }
 });
