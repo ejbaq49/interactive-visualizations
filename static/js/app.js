@@ -78,6 +78,30 @@ d3.json("/static/data/samples.json").then((data) => {
 
     Plotly.newPlot("bar", dataBar);
 
+    // create trace for bubble plot
+    var traceBubble = {
+      x: otuIDs,
+      y: sampleValues,
+      text: otuLabels,
+      mode: "markers",
+      marker: {
+        size: sampleValues,
+        color: otuIDs,
+      },
+    };
+
+    var layBubble = {
+      xaxis: {
+        title: {
+          text: "OTU ID",
+        },
+      },
+    };
+
+    var dataBubble = [traceBubble];
+
+    Plotly.newPlot("bubble", dataBubble, layBubble);
+
     // console.log
     console.log(`Selected Sample: ${selectedSubject}`);
     console.log(`Sample Metadata: ${JSON.stringify(filteredMetadata)}`);
