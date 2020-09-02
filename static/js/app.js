@@ -57,8 +57,26 @@ d3.json("/static/data/samples.json").then((data) => {
 
     // slice samples for first 10 items for barPlot
     var sampleValues = filteredSamples[0].sample_values.slice(0, 10);
-    var otuIDs = filteredSamples[0].otu_ids.slice(0, 10);
     var otuLabels = filteredSamples[0].otu_labels.slice(0, 10);
+    var otuIDs = filteredSamples[0].otu_ids.slice(0, 10);
+    // prefix otuIDs with "OTU"
+    var otuIDsP = [];
+    otuIDs.forEach(function (otu) {
+      otuIDsP.push(`OTU ${otu}`);
+    });
+
+    // create trace for bar chart
+    var traceBar = {
+      type: "bar",
+      x: sampleValues.reverse(),
+      y: otuIDsP.reverse(),
+      text: otuLabels.reverse(),
+      orientation: "h",
+    };
+
+    var dataBar = [traceBar];
+
+    Plotly.newPlot("bar", dataBar);
 
     // console.log
     console.log(`Selected Sample: ${selectedSubject}`);
@@ -66,6 +84,7 @@ d3.json("/static/data/samples.json").then((data) => {
     console.log(`Filtered Sample: ${JSON.stringify(filteredSamples)}`);
     console.log(`Sample Values: ${JSON.stringify(sampleValues)}`);
     console.log(`OTU IDs: ${JSON.stringify(otuIDs)}`);
+    console.log(`OTU IDs Prefixed: ${otuIDsP}`);
     console.log(`OTU Labels: ${JSON.stringify(otuLabels)}`);
   }
 });
