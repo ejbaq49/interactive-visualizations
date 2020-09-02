@@ -16,14 +16,20 @@ d3.json("/static/data/samples.json").then((data) => {
 
   // define elements
   var sampleMetadata = d3.select("#sample-metadata");
+  var barPlot = d3.select("#bar");
+  var gaugePlot = d3.select("#gauge");
+  var bubblePlot = d3.select("#bubble");
 
-  // change event for select
+  // create change event for select
   testSubject.on("change", updateCharts);
 
   // event functions
   function updateCharts() {
     // Prevent refresh
     d3.event.preventDefault();
+
+    // clear console
+    console.clear();
 
     // get selectedSubject
     var selectedSubject = testSubject.property("value");
@@ -33,7 +39,7 @@ d3.json("/static/data/samples.json").then((data) => {
       return meta.id == selectedSubject;
     });
 
-    // filter samples
+    // filter samples by selectedSubject
     var filteredSamples = samples.filter(function (sample) {
       return sample.id == selectedSubject;
     });
@@ -49,9 +55,17 @@ d3.json("/static/data/samples.json").then((data) => {
       });
     });
 
+    // slice samples for first 10 items for barPlot
+    var sampleValues = filteredSamples[0].sample_values.slice(0, 10);
+    var otuIDs = filteredSamples[0].otu_ids.slice(0, 10);
+    var otuLabels = filteredSamples[0].otu_labels.slice(0, 10);
+
     // console.log
     console.log(`Selected Sample: ${selectedSubject}`);
     console.log(`Sample Metadata: ${JSON.stringify(filteredMetadata)}`);
-    console.log(`Samples: ${JSON.stringify(filteredSamples)}`);
+    console.log(`Filtered Sample: ${JSON.stringify(filteredSamples)}`);
+    console.log(`Sample Values: ${JSON.stringify(sampleValues)}`);
+    console.log(`OTU IDs: ${JSON.stringify(otuIDs)}`);
+    console.log(`OTU Labels: ${JSON.stringify(otuLabels)}`);
   }
 });
