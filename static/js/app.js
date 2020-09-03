@@ -1,5 +1,5 @@
 // Pull in and process samples.json for charts
-d3.json("/static/data/samples.json").then((data) => {
+d3.json("https://github.com/ejbaq49/interactive-visualizations/blob/master/static/data/samples.json").then((data) => {
   // retrieve datasets
   var metadata = data.metadata;
   var subjectNames = data.names;
