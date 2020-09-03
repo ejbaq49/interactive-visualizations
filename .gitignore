@@ -4,6 +4,9 @@
 # Log file
 *.log
 
+# Test files
+scratch.js
+
 # BlueJ files
 *.ctxt
 
