@@ -29,7 +29,7 @@ d3.json("./static/data/samples.json").then((data) => {
     d3.event.preventDefault();
 
     // clear console
-    console.clear();
+    // console.clear();
 
     // get selectedSubject
     var selectedSubject = testSubject.property("value");
@@ -115,7 +115,7 @@ d3.json("./static/data/samples.json").then((data) => {
         // color: "blue",
         title: { text: "Belly Button Washing Frequency" },
         type: "indicator",
-        mode: "gauge+number+delta",
+        mode: "gauge+number",
         // delta: { reference: 380 },
         gauge: {
           axis: { range: [null, 9] },
@@ -130,8 +130,9 @@ d3.json("./static/data/samples.json").then((data) => {
             { range: [7, 8], color: "gray" },
             { range: [8, 9], color: "lightgray" },
           ],
+          bar: { color: "steelblue" },
           threshold: {
-            line: { color: "green", width: 3 },
+            line: { color: "steelblue", width: 3 },
             thickness: 0.75,
             value: washFreq,
           },
