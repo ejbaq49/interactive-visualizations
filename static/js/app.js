@@ -46,12 +46,16 @@ d3.json("./static/data/samples.json").then((data) => {
 
     // remove all paragraph elements first
     sampleMetadata.html("");
-    // add paragraph tags in panel-body
+    // add paragraph tags in panel-body; return wash frequency
+    var washFreq = 0;
     filteredMetadata.forEach((item) => {
       Object.entries(item).forEach(([key, value]) => {
         // console.log(`${key}: ${value}`);
         var newParagraph = sampleMetadata.append("p");
         newParagraph.text(`${key}: ${value}`);
+        if (key === "wfreq") {
+          washFreq = value;
+        }
       });
     });
 
@@ -110,5 +114,6 @@ d3.json("./static/data/samples.json").then((data) => {
     console.log(`OTU IDs: ${JSON.stringify(otuIDs)}`);
     console.log(`OTU IDs Prefixed: ${otuIDsP}`);
     console.log(`OTU Labels: ${JSON.stringify(otuLabels)}`);
+    console.log(`Wash Frequency: ${washFreq}`);
   }
 });
