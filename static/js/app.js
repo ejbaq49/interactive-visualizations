@@ -84,7 +84,7 @@ d3.json("./static/data/samples.json").then((data) => {
 
     // create trace for bubble plot
     var traceBubble = {
-      x: otuIDs,
+      x: otuIDs.reverse(),
       y: sampleValues,
       text: otuLabels,
       mode: "markers",
