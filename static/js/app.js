@@ -106,6 +106,43 @@ d3.json("./static/data/samples.json").then((data) => {
 
     Plotly.newPlot("bubble", dataBubble, layBubble);
 
+    // Gauge Chart
+    var gaugeData = [
+      {
+        domain: { x: [0, 1], y: [0, 1] },
+        value: washFreq,
+        // line: { color: "blue", width: 3 },
+        // color: "blue",
+        title: { text: "Belly Button Washing Frequency" },
+        type: "indicator",
+        mode: "gauge+number+delta",
+        // delta: { reference: 380 },
+        gauge: {
+          axis: { range: [null, 9] },
+          steps: [
+            { range: [0, 1], color: "lightgray" },
+            { range: [1, 2], color: "gray" },
+            { range: [2, 3], color: "lightgray" },
+            { range: [3, 4], color: "gray" },
+            { range: [4, 5], color: "lightgray" },
+            { range: [5, 6], color: "gray" },
+            { range: [6, 7], color: "lightgray" },
+            { range: [7, 8], color: "gray" },
+            { range: [8, 9], color: "lightgray" },
+          ],
+          threshold: {
+            line: { color: "green", width: 3 },
+            thickness: 0.75,
+            value: washFreq,
+          },
+        },
+      },
+    ];
+
+    var gaugeLayout = { width: 600, height: 450, margin: { t: 0, b: 0 } };
+    Plotly.newPlot("gauge", gaugeData, gaugeLayout);
+    // Gauge Chart
+
     // console.log
     console.log(`Selected Sample: ${selectedSubject}`);
     console.log(`Sample Metadata: ${JSON.stringify(filteredMetadata)}`);
